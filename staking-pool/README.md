@@ -160,7 +160,11 @@ near create_account my_validator --masterAccount=owner
 near deploy --accountId=my_validator --wasmFile=res/staking_pool.wasm
 # Initialize staking pool at account `my_validator` for the owner account ID `owner`, given staking pool and 10% reward fee.
 near call my_validator new '{"owner_id": "owner", "stake_public_key": "CE3QAXyVLeScmY9YeEyR3Tw9yXfjBPzFLzroTranYtVb", "reward_fee_fraction": {"numerator": 10, "denominator": 100}}' --account_id owner
-# TODO: Delete all access keys from the `my_validator` account
+# Delete all access keys from the `my_validator` account. 
+# Find the private key
+near keys my_validator | grep public_key
+# Remove it to lock the accounr
+near delete-key --accountId=my_validator "my_validator_public_key"
 ```
 
 As a user, to delegate money:
